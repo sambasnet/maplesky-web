@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font declarations */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-inter);
+  background: radial-gradient(
+    circle at center,
+    #212a57 0%,
+    #212a57 20%,
+    #1a2145 40%,
+    #141829 60%,
+    #0f172e 100%
+  );
+  background-attachment: fixed;
+  color: white;
+  min-height: 100vh;
+}
+
+/* GIDS Display specific styles */
+.gids-container {
+  background: linear-gradient(180deg, #0a1628 0%, #061018 100%);
+  border: 3px solid #D4AF37;
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.3),
+    inset 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+.gids-character {
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(180deg, #FFD700 0%, #D4AF37 50%, #B8960F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect for gold */
+.gold-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Button hover transition */
+.btn-gold {
+  @apply border-gold text-gold hover:bg-gold hover:text-navy transition-all duration-300;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFD700;
+}
