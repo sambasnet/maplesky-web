@@ -5,9 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 interface GidsDisplayProps {
   /**
-   * Main text to display with flip animation
+   * Main text to display with flip animation (first line)
    */
   text?: string
+  /**
+   * Second line of text for display
+   */
+  secondLine?: string
   /**
    * Subtitle text displayed below
    */
@@ -128,8 +132,9 @@ function FlippingCharacter({
  * - Infinite loop animation
  */
 export default function GidsDisplay({
-  text = 'ARRIVING SOON',
-  subtitle = 'MapleSky Travels - Redefining Travel Industry',
+  text = 'ARRIVING',
+  secondLine = 'SOON',
+  subtitle = 'MapleSky Travels Inc. - Redefining Travel Industry',
   charDelay = 0.15,
   flipDuration = 0.6,
   pauseDuration = 5,
@@ -139,6 +144,7 @@ export default function GidsDisplay({
 
   // Create array of characters for rendering
   const characters = useMemo(() => text.split(''), [text])
+  const secondLineChars = useMemo(() => secondLine.split(''), [secondLine])
 
   useEffect(() => {
     // Initial delay before first animation
@@ -196,6 +202,37 @@ export default function GidsDisplay({
           return (
             <FlippingCharacter
               key={`${animationKey}-${index}`}
+              char={char}
+              isAnimating={isAnimating}
+              delay={delay}
+              duration={flipDuration}
+            />
+          )
+        })}
+      </div>
+
+      {/* Second line animated text */}
+      <div
+        className="flex justify-center items-center flex-wrap mt-2"
+        aria-hidden={false}
+      >
+        {secondLineChars.map((char, index) => {
+          // Calculate staggered delay for each character
+          const delay = (text.length + index) * charDelay
+
+          // Render space as invisible spacer
+          if (char === ' ') {
+            return (
+              <div
+                key={`space2-${index}`}
+                className="h-16 sm:h-20 md:h-24 w-4 sm:w-5 md:w-6"
+              />
+            )
+          }
+
+          return (
+            <FlippingCharacter
+              key={`${animationKey}-second-${index}`}
               char={char}
               isAnimating={isAnimating}
               delay={delay}
