@@ -15,9 +15,9 @@ interface LogoProps {
  * Width values for each size variant
  */
 const sizeWidths = {
-  small: 120,
-  medium: 160,
-  large: 200,
+  small: 130,
+  medium: 180,
+  large: 220,
 }
 
 /**

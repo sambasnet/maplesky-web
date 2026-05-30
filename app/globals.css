@@ -19,12 +19,11 @@ html {
 body {
   font-family: var(--font-inter);
   background: radial-gradient(
-    circle at center,
-    #212a57 0%,
-    #212a57 20%,
-    #1a2145 40%,
-    #141829 60%,
-    #0f172e 100%
+    ellipse at center,
+    #1A3A6B 0%,
+    #0F2545 30%,
+    #0A1F44 60%,
+    #051020 100%
   );
   background-attachment: fixed;
   color: white;
