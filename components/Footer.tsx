@@ -13,7 +13,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-navy-dark py-8 md:py-12 border-t border-white/5"
+      className="bg-cream py-8 md:py-12 border-t border-brand/10"
       role="contentinfo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,7 +43,7 @@ export default function Footer() {
               href="https://twitter.com/mapleskytravels"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-white/50 hover:text-gold transition-colors duration-200"
+              className="p-2 text-brand/50 hover:text-brand transition-colors duration-200"
               aria-label="Follow us on Twitter"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@ export default function Footer() {
               href="https://instagram.com/mapleskytravels"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-white/50 hover:text-gold transition-colors duration-200"
+              className="p-2 text-brand/50 hover:text-brand transition-colors duration-200"
               aria-label="Follow us on Instagram"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@ export default function Footer() {
               href="https://linkedin.com/company/mapleskytravels"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-white/50 hover:text-gold transition-colors duration-200"
+              className="p-2 text-brand/50 hover:text-brand transition-colors duration-200"
               aria-label="Connect on LinkedIn"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <motion.p
-            className="text-white/30 text-sm"
+            className="text-brand/30 text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

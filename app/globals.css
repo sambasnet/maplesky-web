@@ -8,6 +8,8 @@
 :root {
   --font-poppins: 'Poppins', sans-serif;
   --font-inter: 'Inter', sans-serif;
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --animate-slide-in-y: 1rem;
 }
 
 /* Smooth scrolling for the entire page */
@@ -18,25 +20,19 @@ html {
 /* Base styles */
 body {
   font-family: var(--font-inter);
-  background: radial-gradient(
-    ellipse at center,
-    #1A3A6B 0%,
-    #0F2545 30%,
-    #0A1F44 60%,
-    #051020 100%
-  );
+  background: #F7F3E9;
   background-attachment: fixed;
-  color: white;
+  color: #D32F2F;
   min-height: 100vh;
 }
 
 /* GIDS Display specific styles */
 .gids-container {
-  background: linear-gradient(180deg, #0a1628 0%, #061018 100%);
-  border: 3px solid #D4AF37;
+  background: #F7F3E9;
+  border: 3px solid #D32F2F;
   box-shadow:
-    0 0 20px rgba(212, 175, 55, 0.3),
-    inset 0 0 60px rgba(0, 0, 0, 0.5);
+    0 0 20px rgba(211, 47, 47, 0.2),
+    inset 0 0 60px rgba(0, 0, 0, 0.1);
 }
 
 .gids-character {
@@ -44,27 +40,48 @@ body {
   text-shadow: 0 0 10px currentColor;
 }
 
-/* Gold gradient text */
-.text-gold-gradient {
-  background: linear-gradient(180deg, #FFD700 0%, #D4AF37 50%, #B8960F 100%);
+/* Fade slide in animation - x.ai style */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--animate-slide-in-y, 1rem));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide-in {
+  animation: fadeSlideIn 520ms var(--ease-out-cubic) both;
+}
+
+/* Brand red text */
+.text-brand {
+  color: #D32F2F;
+}
+
+/* Red gradient text */
+.text-red-gradient {
+  background: linear-gradient(180deg, #D32F2F 0%, #B71C1C 50%, #8B0000 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow effect for gold */
-.gold-glow {
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+/* Glow effect for red */
+.red-glow {
+  box-shadow: 0 0 20px rgba(211, 47, 47, 0.4);
 }
 
 /* Button hover transition */
-.btn-gold {
-  @apply border-gold text-gold hover:bg-gold hover:text-navy transition-all duration-300;
+.btn-brand {
+  @apply border-brand text-brand hover:bg-brand hover:text-cream transition-all duration-300;
 }
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  outline: 2px solid #D4AF37;
+  outline: 2px solid #D32F2F;
   outline-offset: 2px;
 }
 
@@ -74,14 +91,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172e;
+  background: #F7F3E9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
+  background: #D32F2F;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FFD700;
+  background: #B71C1C;
 }

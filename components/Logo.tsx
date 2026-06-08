@@ -38,7 +38,7 @@ export default function Logo({ size = 'medium', className = '' }: LogoProps) {
       style={{ width, height: 'auto' }}
     >
       <img
-        src="/maplesky-logo.svg"
+        src="/MapleSky-logonew.svg"
         alt="MapleSky Travels Inc. Logo"
         width={width}
         height="auto"

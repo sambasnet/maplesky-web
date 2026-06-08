@@ -44,7 +44,7 @@ export default function Navbar({ links = [] }: NavbarProps) {
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-300
         ${isScrolled
-          ? 'bg-navy/95 backdrop-blur-md shadow-lg'
+          ? 'bg-cream/95 backdrop-blur-md shadow-lg'
           : 'bg-transparent'
         }
       `}
@@ -52,11 +52,11 @@ export default function Navbar({ links = [] }: NavbarProps) {
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-20 md:h-20">
           {/* Logo */}
           <a
             href="#home"
-            className="flex-shrink-0"
+            className="flex-shrink-0 py-1"
             aria-label="MapleSky Travels - Go to homepage"
           >
             <Logo size="small" />
@@ -68,14 +68,14 @@ export default function Navbar({ links = [] }: NavbarProps) {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white/80 hover:text-gold transition-colors duration-200 font-medium"
+                className="text-brand hover:text-brand/70 transition-colors duration-200 font-medium"
               >
                 {link.name}
               </a>
             ))}
             <a
               href="#notify"
-              className="px-5 py-2 border border-gold text-gold rounded hover:bg-gold hover:text-navy transition-all duration-300"
+              className="px-5 py-2 border border-brand text-brand rounded hover:bg-brand hover:text-cream transition-all duration-300"
             >
               Get Notified
             </a>
@@ -84,7 +84,7 @@ export default function Navbar({ links = [] }: NavbarProps) {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-brand"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -133,12 +133,12 @@ export default function Navbar({ links = [] }: NavbarProps) {
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="px-2 pt-2 pb-3 space-y-1 bg-navy/95 backdrop-blur-md rounded-lg mt-2">
+              <div className="px-2 pt-2 pb-3 space-y-1 bg-cream/95 backdrop-blur-md rounded-lg mt-2">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    className="block px-3 py-2 text-white/80 hover:text-gold hover:bg-white/5 rounded-md transition-colors"
+                    className="block px-3 py-2 text-brand hover:text-brand/70 hover:bg-brand/5 rounded-md transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
@@ -146,7 +146,7 @@ export default function Navbar({ links = [] }: NavbarProps) {
                 ))}
                 <a
                   href="#notify"
-                  className="block mx-3 mt-4 px-4 py-2 border border-gold text-gold text-center rounded hover:bg-gold hover:text-navy transition-all"
+                  className="block mx-3 mt-4 px-4 py-2 border border-brand text-brand text-center rounded hover:bg-brand hover:text-cream transition-all"
                   onClick={() => setIsOpen(false)}
                 >
                   Get Notified

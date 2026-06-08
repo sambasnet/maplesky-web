@@ -1,118 +1,124 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 interface GidsDisplayProps {
-  /**
-   * Main text to display with fade-slide-up animation (first line)
-   */
   text?: string
-  /**
-   * Second line of text for display
-   */
   secondLine?: string
-  /**
-   * Subtitle text displayed below
-   */
   subtitle?: string
-  /**
-   * Animation delay between characters in seconds
-   */
   charDelay?: number
-  /**
-   * Duration of each character animation in seconds
-   */
-  animDuration?: number
 }
 
-/**
- * Single animated character component - fade slide up style (x.ai style)
- */
-function AnimatedCharacter({
-  char,
-  delay,
-  duration,
-  isVisible,
-}: {
+const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+function getRandomChar(): string {
+  return FLIP_CHARS[Math.floor(Math.random() * FLIP_CHARS.length)]
+}
+
+interface AnimatedCharProps {
   char: string
   delay: number
-  duration: number
-  isVisible: boolean
-}) {
+  isAnimating: boolean
+  scrambleCount?: number
+  size?: 'large' | 'small'
+}
+
+function ScramblingChar({ char, delay, isAnimating, scrambleCount = 8, size = 'large' }: AnimatedCharProps) {
+  const [displayChar, setDisplayChar] = useState(char)
+  const [isScrambling, setIsScrambling] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    if (!isAnimating) {
+      setDisplayChar(char)
+      setIsScrambling(false)
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      return
+    }
+
+    // Start scrambling after delay
+    const startTimeout = setTimeout(() => {
+      setIsScrambling(true)
+      let count = 0
+
+      intervalRef.current = setInterval(() => {
+        if (count < scrambleCount) {
+          setDisplayChar(getRandomChar())
+          count++
+        } else {
+          setDisplayChar(char)
+          setIsScrambling(false)
+          if (intervalRef.current) clearInterval(intervalRef.current)
+        }
+      }, 50) // 50ms between each scramble = 8 chars in ~400ms
+
+      return () => {
+        if (intervalRef.current) clearInterval(intervalRef.current)
+      }
+    }, delay * 1000)
+
+    return () => {
+      clearTimeout(startTimeout)
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [isAnimating, char, delay, scrambleCount])
+
   return (
     <motion.span
-      className="inline-block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gold-light"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        ease: [0.34, 1.56, 0.64, 1],
-      }}
+      className={`inline-block font-bold ${size === 'large' ? 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl' : 'text-2xl sm:text-3xl md:text-4xl'}`}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.1 }}
       style={{
-        textShadow: '0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3)',
-        willChange: 'transform, opacity',
+        color: '#D32F2F',
+        textShadow: size === 'large'
+          ? '0 0 30px rgba(211, 47, 47, 0.4), 0 0 60px rgba(211, 47, 47, 0.2)'
+          : '0 0 15px rgba(211, 47, 47, 0.3), 0 0 30px rgba(211, 47, 47, 0.15)',
       }}
     >
-      {char}
+      {displayChar}
     </motion.span>
   )
 }
 
-/**
- * GIDS Display Component
- * x.ai style fade-slide-up animated text display
- *
- * Features:
- * - Character-by-character fade-slide-up animation
- * - Staggered timing for each character
- * - Golden gradient text with glow
- * - Infinite loop animation
- */
 export default function GidsDisplay({
   text = 'ARRIVING',
   secondLine = 'SOON',
-  subtitle = 'MapleSky Travels Inc. - Redefining Travel Industry',
+  subtitle = 'MapleSky Travels Inc.',
   charDelay = 0.08,
-  animDuration = 0.6,
 }: GidsDisplayProps) {
-  const [isVisible, setIsVisible] = useState(false)
-  const [animationKey, setAnimationKey] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
 
-  // Create array of characters for rendering
   const characters = useMemo(() => text.split(''), [text])
   const secondLineChars = useMemo(() => secondLine.split(''), [secondLine])
 
   useEffect(() => {
-    // Initial delay before first animation
+    // Start animation on mount
     const initialTimeout = setTimeout(() => {
-      setIsVisible(true)
-    }, 500)
+      setIsAnimating(true)
+    }, 300)
 
     // Restart animation loop
-    const totalAnimDuration = (text.length + secondLine.length) * charDelay + animDuration * 1000
+    const totalChars = text.length + secondLine.length
+    const animDuration = totalChars * charDelay + 0.5
     const pauseDuration = 4000
 
     const restartInterval = setInterval(() => {
-      setAnimationKey((prev) => prev + 1)
-      setIsVisible(false)
-
-      // Start animation after brief pause
+      setIsAnimating(false)
       setTimeout(() => {
-        setIsVisible(true)
+        setIsAnimating(true)
       }, 100)
-    }, pauseDuration + totalAnimDuration)
+    }, pauseDuration + animDuration * 1000)
 
     return () => {
       clearTimeout(initialTimeout)
       clearInterval(restartInterval)
     }
-  }, [charDelay, animDuration, text.length, secondLine.length])
+  }, [charDelay, text.length, secondLine.length])
 
   return (
     <motion.div
-      key={animationKey}
       className="gids-container rounded-lg p-4 sm:p-6 md:p-8 mx-2 sm:mx-4"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -121,82 +127,53 @@ export default function GidsDisplay({
       aria-level={1}
       aria-label={`${text} ${secondLine}`}
     >
-      {/* Main animated text - first line */}
-      <div
-        className="flex justify-center items-center flex-wrap"
-        aria-hidden={false}
-      >
-        {characters.map((char, index) => {
-          const delay = index * charDelay
-
-          // Render space as invisible spacer
-          if (char === ' ') {
-            return (
-              <span
-                key={`space-${index}`}
-                className="inline-block w-4 sm:w-5 md:w-6"
-              />
-            )
-          }
-
-          return (
-            <AnimatedCharacter
-              key={`${animationKey}-${index}`}
-              char={char}
-              delay={delay}
-              duration={animDuration}
-              isVisible={isVisible}
-            />
-          )
-        })}
+      {/* First line */}
+      <div className="flex justify-center items-center flex-wrap">
+        {characters.map((char, index) => (
+          <ScramblingChar
+            key={`first-${index}`}
+            char={char}
+            delay={index * charDelay}
+            isAnimating={isAnimating}
+            scrambleCount={8}
+          />
+        ))}
       </div>
 
-      {/* Second line animated text */}
-      <div
-        className="flex justify-center items-center flex-wrap mt-2"
-        aria-hidden={false}
-      >
-        {secondLineChars.map((char, index) => {
-          const delay = (text.length + index) * charDelay
-
-          // Render space as invisible spacer
-          if (char === ' ') {
-            return (
-              <span
-                key={`space2-${index}`}
-                className="inline-block w-4 sm:w-5 md:w-6"
-              />
-            )
-          }
-
-          return (
-            <AnimatedCharacter
-              key={`${animationKey}-second-${index}`}
-              char={char}
-              delay={delay}
-              duration={animDuration}
-              isVisible={isVisible}
-            />
-          )
-        })}
+      {/* Second line */}
+      <div className="flex justify-center items-center flex-wrap mt-2">
+        {secondLineChars.map((char, index) => (
+          <ScramblingChar
+            key={`second-${index}`}
+            char={char}
+            delay={(text.length + index) * charDelay}
+            isAnimating={isAnimating}
+            scrambleCount={8}
+          />
+        ))}
       </div>
 
-      {/* Subtitle */}
-      <motion.p
-        className="mt-8 sm:mt-10 text-center text-sm sm:text-base md:text-lg text-white/70 font-inter"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        {subtitle}
-      </motion.p>
+      {/* Subtitle - Animated with scramble effect */}
+      <div className="flex justify-center items-center flex-wrap mt-6 sm:mt-8">
+        {subtitle.split('').map((char, index) => (
+          <ScramblingChar
+            key={`subtitle-${index}`}
+            char={char}
+            delay={(text.length + secondLine.length + index) * charDelay + 0.3}
+            isAnimating={isAnimating}
+            scrambleCount={6}
+            size="small"
+          />
+        ))}
+      </div>
 
       {/* Decorative bottom line */}
       <motion.div
-        className="mt-8 sm:mt-10 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent"
+        className="mt-8 sm:mt-10 h-px"
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
         transition={{ delay: 2, duration: 0.8, ease: 'easeOut' }}
+        style={{ background: 'linear-gradient(to right, transparent, #D32F2F, transparent)' }}
       />
     </motion.div>
   )

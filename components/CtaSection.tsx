@@ -97,18 +97,17 @@ export default function CtaSection() {
       className="relative py-20 md:py-32 overflow-hidden"
       aria-labelledby="cta-heading"
       style={{
-        background: 'radial-gradient(circle at center, #212a57 0%, #212a57 20%, #1a2145 40%, #141829 60%, #0f172e 100%)',
+        background: '#D32F2F',
       }}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy to-darkGray pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cream/40 to-transparent" />
 
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Section heading */}
         <motion.h2
           id="cta-heading"
-          className="text-3xl md:text-4xl lg:text-5xl font-poppins font-bold text-white mb-4"
+          className="text-3xl md:text-4xl lg:text-5xl font-poppins font-bold text-cream mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -118,7 +117,7 @@ export default function CtaSection() {
         </motion.h2>
 
         <motion.p
-          className="text-white/70 text-lg mb-8"
+          className="text-cream/70 text-lg mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -150,13 +149,13 @@ export default function CtaSection() {
               onChange={handleInputChange}
               placeholder="Enter your email"
               className={`
-                w-full px-4 py-3 bg-navy/50 border rounded
-                text-white placeholder-white/40
-                focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
+                w-full px-4 py-3 bg-cream/10 border rounded
+                text-cream placeholder-cream/40
+                focus:outline-none focus:ring-2 focus:ring-cream focus:border-transparent
                 transition-all duration-200
                 ${formState.status === 'error'
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gold/50'
+                  ? 'border-cream focus:ring-cream'
+                  : 'border-cream/50'
                 }
               `}
               aria-describedby={formState.message ? 'form-message' : undefined}
@@ -174,8 +173,8 @@ export default function CtaSection() {
               transition-all duration-300
               disabled:opacity-50 disabled:cursor-not-allowed
               ${formState.status === 'success'
-                ? 'border-green-500 text-green-400 bg-green-500/10'
-                : 'border-gold text-gold hover:bg-gold hover:text-navy'
+                ? 'border-cream text-cream bg-cream/10'
+                : 'border-cream text-cream hover:bg-cream hover:text-brand'
               }
             `}
             aria-label="Subscribe to get notified"
@@ -222,7 +221,7 @@ export default function CtaSection() {
             id="form-message"
             className={`
               mt-4 text-sm
-              ${formState.status === 'error' ? 'text-red-400' : 'text-green-400'}
+              ${formState.status === 'error' ? 'text-cream' : 'text-cream'}
             `}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -235,7 +234,7 @@ export default function CtaSection() {
 
         {/* Privacy note */}
         <motion.p
-          className="mt-6 text-white/40 text-xs"
+          className="mt-6 text-cream/40 text-xs"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -246,7 +245,7 @@ export default function CtaSection() {
       </div>
 
       {/* Bottom decoration */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-cream/20 to-transparent" />
     </section>
   )
 }

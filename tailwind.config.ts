@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        cream: '#F7F3E9',
+        brand: '#D32F2F',
         navy: {
           DEFAULT: '#0A1F44',
           light: '#1A3A6B',

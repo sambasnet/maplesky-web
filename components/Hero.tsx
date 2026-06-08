@@ -26,11 +26,11 @@ function ScrollIndicator() {
         role="img"
         aria-label="Scroll down to see more"
       >
-        <span className="text-white/50 text-xs uppercase tracking-widest">
+        <span className="text-brand/50 text-xs uppercase tracking-widest">
           Scroll
         </span>
         <svg
-          className="w-6 h-6 text-gold"
+          className="w-6 h-6 text-brand"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -53,7 +53,7 @@ function ScrollIndicator() {
  *
  * Features:
  * - Full viewport height (100vh)
- * - Navy background
+ * - Cream background
  * - Centered GIDS display
  * - Scroll indicator
  * - Staggered fade-in animations
@@ -65,24 +65,21 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       aria-labelledby="hero-heading"
       style={{
-        background: 'radial-gradient(circle at center, #212a57 0%, #212a57 20%, #1a2145 40%, #141829 60%, #0f172e 100%)',
+        background: '#F7F3E9',
       }}
     >
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-light/20 via-navy to-navy-dark pointer-events-none" />
-
       {/* Decorative top border */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand to-transparent" />
 
       {/* Decorative side elements */}
-      <div className="absolute left-4 md:left-8 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
-      <div className="absolute right-4 md:right-8 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
+      <div className="absolute left-4 md:left-8 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-brand/30 to-transparent" />
+      <div className="absolute right-4 md:right-8 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-brand/30 to-transparent" />
 
       {/* Main content */}
       <div className="relative z-10 w-full max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Pre-heading */}
         <motion.p
-          className="text-center text-gold text-sm md:text-base uppercase tracking-[0.3em] mb-4"
+          className="text-center text-brand text-sm md:text-base uppercase tracking-[0.3em] mb-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -95,7 +92,7 @@ export default function Hero() {
 
         {/* Post-heading */}
         <motion.p
-          className="text-center text-white/60 text-sm md:text-base mt-8 max-w-md mx-auto"
+          className="text-center text-brand/60 text-sm md:text-base mt-8 max-w-md mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.5, duration: 1 }}
@@ -106,9 +103,6 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <ScrollIndicator />
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy-dark to-transparent pointer-events-none" />
     </section>
   )
 }
